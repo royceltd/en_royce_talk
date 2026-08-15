@@ -31,7 +31,10 @@ Installs a RoyceTalk SMS integration for your Frappe/ERPNext site:
   messages through RoyceTalk too, with no extra code.
 - **Delivery webhook** — `RoyceTalk Settings` shows a Callback URL to paste into your
   RoyceTalk dashboard so delivery status updates flow back into RoyceTalk SMS Log.
-- **Royce Talk workspace** — icon + shortcuts to Settings and SMS Log on the Desk home page.
+- **Royce Talk workspace** — icon + shortcuts to Settings and SMS Log on the Desk home page,
+  plus three number cards (SMS Sent This Month, Spend This Month (KES), Failed This
+  Month) pulled live from RoyceTalk SMS Log so spend/volume is visible at a glance
+  without opening the log.
 - **"Notify Customer" button on Sales Invoice** — shipped as a Client Script (no JS
   build step required), opens a dialog pre-filled with the invoice's contact number and
   a default message, sends via `send_single_sms`, and logs against the invoice.
