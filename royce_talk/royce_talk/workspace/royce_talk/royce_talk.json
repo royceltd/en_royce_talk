@@ -1,0 +1,127 @@
+{
+ "app": "royce_talk",
+ "charts": [],
+ "content": "[{\"id\":\"rt-header\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\"><b>Royce Talk</b></span>\",\"col\":12}},{\"id\":\"rt-spacer\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"rt-shortcut-settings\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"RoyceTalk Settings\",\"col\":4}},{\"id\":\"rt-shortcut-log\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"RoyceTalk SMS Log\",\"col\":4}},{\"id\":\"rt-shortcut-campaign\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"RoyceTalk SMS Campaign\",\"col\":4}},{\"id\":\"rt-shortcut-broadcast\",\"type\":\"shortcut\",\"data\":{\"shortcut_name\":\"RoyceTalk Operational Broadcast\",\"col\":4}},{\"id\":\"rt-card-general\",\"type\":\"card\",\"data\":{\"card_name\":\"Royce Talk\",\"col\":4}},{\"id\":\"rt-card-marketing\",\"type\":\"card\",\"data\":{\"card_name\":\"Marketing (consent-gated)\",\"col\":4}},{\"id\":\"rt-card-operational\",\"type\":\"card\",\"data\":{\"card_name\":\"Operational (no consent gate)\",\"col\":4}}]",
+ "creation": "2026-08-16 01:36:28.678722",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "message",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Royce Talk",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Royce Talk",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "RoyceTalk Settings",
+   "link_count": 0,
+   "link_to": "RoyceTalk Settings",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "RoyceTalk SMS Log",
+   "link_count": 0,
+   "link_to": "RoyceTalk SMS Log",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Marketing (consent-gated)",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "description": "Customer + Lead. Consent-gated -- always.",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "RoyceTalk SMS Campaign",
+   "link_count": 0,
+   "link_to": "RoyceTalk SMS Campaign",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Operational (no consent gate)",
+   "link_count": 0,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "description": "Employee + Supplier. Internal/operational -- no marketing consent gate.",
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "RoyceTalk Operational Broadcast",
+   "link_count": 0,
+   "link_to": "RoyceTalk Operational Broadcast",
+   "link_type": "DocType",
+   "onboard": 1,
+   "type": "Link"
+  }
+ ],
+ "modified": "2026-08-16 02:05:36.631630",
+ "modified_by": "Administrator",
+ "module": "Royce Talk",
+ "name": "Royce Talk",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "restrict_to_domain": "",
+ "roles": [],
+ "sequence_id": 1.0,
+ "shortcuts": [
+  {
+   "color": "Grey",
+   "doc_view": "",
+   "label": "RoyceTalk Settings",
+   "link_to": "RoyceTalk Settings",
+   "type": "DocType"
+  },
+  {
+   "color": "Blue",
+   "doc_view": "List",
+   "label": "RoyceTalk SMS Log",
+   "link_to": "RoyceTalk SMS Log",
+   "type": "DocType"
+  },
+  {
+   "color": "Green",
+   "doc_view": "List",
+   "label": "RoyceTalk SMS Campaign",
+   "link_to": "RoyceTalk SMS Campaign",
+   "type": "DocType"
+  },
+  {
+   "color": "Orange",
+   "doc_view": "List",
+   "label": "RoyceTalk Operational Broadcast",
+   "link_to": "RoyceTalk Operational Broadcast",
+   "type": "DocType"
+  }
+ ],
+ "title": "Royce Talk",
+ "type": "Workspace"
+}

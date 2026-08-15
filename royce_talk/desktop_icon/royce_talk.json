@@ -1,0 +1,21 @@
+{
+ "app": "royce_talk",
+ "bg_color": "blue",
+ "creation": "2026-08-15 22:35:00.751589",
+ "docstatus": 0,
+ "doctype": "Desktop Icon",
+ "hidden": 0,
+ "icon": "message",
+ "icon_type": "Link",
+ "idx": 0,
+ "label": "Royce Talk",
+ "link_to": "Royce Talk",
+ "link_type": "Workspace Sidebar",
+ "modified": "2026-08-16 02:17:29.403972",
+ "modified_by": "Administrator",
+ "name": "Royce Talk",
+ "owner": "Administrator",
+ "restrict_removal": 0,
+ "roles": [],
+ "standard": 1
+}

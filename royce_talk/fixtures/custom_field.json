@@ -1,0 +1,24 @@
+[
+ {
+  "doctype": "Custom Field",
+  "name": "Contact-royce_talk_sms_consent",
+  "dt": "Contact",
+  "fieldname": "royce_talk_sms_consent",
+  "fieldtype": "Check",
+  "label": "SMS Marketing Consent",
+  "insert_after": "mobile_no",
+  "default": "0",
+  "description": "Recipient has explicitly agreed to receive marketing SMS. Required for RoyceTalk SMS Campaign targeting -- off by default, no bulk send ever includes a Contact without this checked."
+ },
+ {
+  "doctype": "Custom Field",
+  "name": "Lead-royce_talk_sms_opted_out",
+  "dt": "Lead",
+  "fieldname": "royce_talk_sms_opted_out",
+  "fieldtype": "Check",
+  "label": "Opted Out of SMS",
+  "insert_after": "mobile_no",
+  "default": "0",
+  "description": "By design, Leads are included in RoyceTalk SMS Campaigns by default (opt-out model, unlike Customer Contacts which are opt-in). Check this to exclude an individual Lead. Leads with status \"Do Not Contact\" are always excluded regardless."
+ }
+]

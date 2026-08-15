@@ -1,0 +1,29 @@
+[
+ {
+  "doctype": "Client Script",
+  "name": "Royce Talk - Sales Invoice Notify Customer",
+  "dt": "Sales Invoice",
+  "view": "Form",
+  "enabled": 1,
+  "module": "Royce Talk",
+  "script": "frappe.ui.form.on(\"Sales Invoice\", {\n\trefresh(frm) {\n\t\tif (frm.doc.docstatus !== 1) {\n\t\t\treturn;\n\t\t}\n\t\tfrm.add_custom_button(\n\t\t\t__(\"Notify Customer\"),\n\t\t\t() => royce_talk_notify_dialog(frm),\n\t\t\t__(\"SMS\")\n\t\t);\n\t},\n});\n\nfunction royce_talk_notify_dialog(frm) {\n\tconst default_message = __(\n\t\t\"Dear {0}, your invoice {1} for {2} has been generated. Thank you for your business.\",\n\t\t[\n\t\t\tfrm.doc.customer_name || frm.doc.customer,\n\t\t\tfrm.doc.name,\n\t\t\tformat_currency(frm.doc.grand_total, frm.doc.currency),\n\t\t]\n\t);\n\n\tconst dialog = new frappe.ui.Dialog({\n\t\ttitle: __(\"Notify Customer via SMS\"),\n\t\tfields: [\n\t\t\t{\n\t\t\t\tfieldname: \"phone_number\",\n\t\t\t\tfieldtype: \"Data\",\n\t\t\t\tlabel: __(\"Phone Number\"),\n\t\t\t\tdefault: frm.doc.contact_mobile,\n\t\t\t\tdescription: __(\"Local (0712345678) or international (+254712345678) format accepted.\"),\n\t\t\t\treqd: 1,\n\t\t\t},\n\t\t\t{\n\t\t\t\tfieldname: \"text_message\",\n\t\t\t\tfieldtype: \"Small Text\",\n\t\t\t\tlabel: __(\"Message\"),\n\t\t\t\tdefault: default_message,\n\t\t\t\treqd: 1,\n\t\t\t},\n\t\t],\n\t\tprimary_action_label: __(\"Send\"),\n\t\tprimary_action(values) {\n\t\t\tfrappe.call({\n\t\t\t\tmethod: \"royce_talk.royce_talk.utils.send_single_sms\",\n\t\t\t\targs: {\n\t\t\t\t\tphone_number: values.phone_number,\n\t\t\t\t\ttext_message: values.text_message,\n\t\t\t\t\treference_doctype: frm.doc.doctype,\n\t\t\t\t\treference_name: frm.doc.name,\n\t\t\t\t},\n\t\t\t\tfreeze: true,\n\t\t\t\tfreeze_message: __(\"Sending SMS...\"),\n\t\t\t\tcallback(r) {\n\t\t\t\t\tdialog.hide();\n\t\t\t\t\tif (r.message) {\n\t\t\t\t\t\tfrappe.show_alert({\n\t\t\t\t\t\t\tmessage: __(\"SMS sent (message id: {0})\", [r.message.message_id]),\n\t\t\t\t\t\t\tindicator: \"green\",\n\t\t\t\t\t\t});\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t});\n\t\t},\n\t});\n\n\tdialog.show();\n}\n"
+ },
+ {
+  "doctype": "Client Script",
+  "name": "Royce Talk - Sales Order Notify Customer",
+  "dt": "Sales Order",
+  "view": "Form",
+  "enabled": 1,
+  "module": "Royce Talk",
+  "script": "frappe.ui.form.on(\"Sales Order\", {\n\trefresh(frm) {\n\t\tif (frm.doc.docstatus !== 1) {\n\t\t\treturn;\n\t\t}\n\t\tfrm.add_custom_button(\n\t\t\t__(\"Notify Customer\"),\n\t\t\t() => royce_talk_notify_dialog(frm),\n\t\t\t__(\"SMS\")\n\t\t);\n\t},\n});\n\nfunction royce_talk_notify_dialog(frm) {\n\tconst default_message = __(\n\t\t\"Dear {0}, your order {1} for {2} has been confirmed. Thank you for your business.\",\n\t\t[\n\t\t\tfrm.doc.customer_name || frm.doc.customer,\n\t\t\tfrm.doc.name,\n\t\t\tformat_currency(frm.doc.grand_total, frm.doc.currency),\n\t\t]\n\t);\n\n\tconst dialog = new frappe.ui.Dialog({\n\t\ttitle: __(\"Notify Customer via SMS\"),\n\t\tfields: [\n\t\t\t{\n\t\t\t\tfieldname: \"phone_number\",\n\t\t\t\tfieldtype: \"Data\",\n\t\t\t\tlabel: __(\"Phone Number\"),\n\t\t\t\tdefault: frm.doc.contact_mobile,\n\t\t\t\tdescription: __(\"Local (0712345678) or international (+254712345678) format accepted.\"),\n\t\t\t\treqd: 1,\n\t\t\t},\n\t\t\t{\n\t\t\t\tfieldname: \"text_message\",\n\t\t\t\tfieldtype: \"Small Text\",\n\t\t\t\tlabel: __(\"Message\"),\n\t\t\t\tdefault: default_message,\n\t\t\t\treqd: 1,\n\t\t\t},\n\t\t],\n\t\tprimary_action_label: __(\"Send\"),\n\t\tprimary_action(values) {\n\t\t\tfrappe.call({\n\t\t\t\tmethod: \"royce_talk.royce_talk.utils.send_single_sms\",\n\t\t\t\targs: {\n\t\t\t\t\tphone_number: values.phone_number,\n\t\t\t\t\ttext_message: values.text_message,\n\t\t\t\t\treference_doctype: frm.doc.doctype,\n\t\t\t\t\treference_name: frm.doc.name,\n\t\t\t\t},\n\t\t\t\tfreeze: true,\n\t\t\t\tfreeze_message: __(\"Sending SMS...\"),\n\t\t\t\tcallback(r) {\n\t\t\t\t\tdialog.hide();\n\t\t\t\t\tif (r.message) {\n\t\t\t\t\t\tfrappe.show_alert({\n\t\t\t\t\t\t\tmessage: __(\"SMS sent (message id: {0})\", [r.message.message_id]),\n\t\t\t\t\t\t\tindicator: \"green\",\n\t\t\t\t\t\t});\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t});\n\t\t},\n\t});\n\n\tdialog.show();\n}\n"
+ },
+ {
+  "doctype": "Client Script",
+  "name": "Royce Talk - SMS Center Consent Warning",
+  "dt": "SMS Center",
+  "view": "Form",
+  "enabled": 1,
+  "module": "Royce Talk",
+  "script": "frappe.ui.form.on(\"SMS Center\", {\n\trefresh(frm) {\n\t\tfrappe.call({\n\t\t\tmethod: \"royce_talk.royce_talk.utils.is_site_wide_gateway_active\",\n\t\t\tcallback(r) {\n\t\t\t\tif (r.message) {\n\t\t\t\t\tfrm.set_intro(\n\t\t\t\t\t\t__(\n\t\t\t\t\t\t\t\"RoyceTalk is your site-wide SMS gateway, and this tool sends to everyone \" +\n\t\t\t\t\t\t\t\"matching your filter with no consent check. For customer/marketing SMS, use \" +\n\t\t\t\t\t\t\t\"<a href=\\\"/app/roycetalk-sms-campaign/new\\\">RoyceTalk SMS Campaign</a> instead \" +\n\t\t\t\t\t\t\t\"-- it only sends to Contacts with SMS Marketing Consent.\"\n\t\t\t\t\t\t),\n\t\t\t\t\t\t\"orange\",\n\t\t\t\t\t\ttrue\n\t\t\t\t\t);\n\t\t\t\t\tfrm.set_df_property(\"send_sms\", \"hidden\", 1);\n\t\t\t\t}\n\t\t\t},\n\t\t});\n\t},\n});\n"
+ }
+]

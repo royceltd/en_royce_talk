@@ -1,0 +1,23 @@
+[
+ {
+  "doctype": "Notification",
+  "name": "RoyceTalk - Sales Invoice Submitted (SMS)",
+  "subject": "Sales Invoice Submitted",
+  "document_type": "Sales Invoice",
+  "event": "Submit",
+  "channel": "SMS",
+  "enabled": 0,
+  "is_standard": 0,
+  "condition": "",
+  "message": "<p>Dear {{ doc.customer_name or doc.customer }},</p>\n<p>Your invoice {{ doc.name }} for {{ frappe.utils.fmt_money(doc.grand_total, currency=doc.currency) }} has been generated.</p>\n<p>Thank you for your business.</p>",
+  "message_type": "Markdown",
+  "recipients": [
+   {
+    "doctype": "Notification Recipient",
+    "parentfield": "recipients",
+    "parenttype": "Notification",
+    "receiver_by_document_field": "contact_mobile"
+   }
+  ]
+ }
+]
