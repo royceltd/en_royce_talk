@@ -8,9 +8,11 @@ You can install this app using the [bench](https://github.com/frappe/bench) CLI:
 
 ```bash
 cd $PATH_TO_YOUR_BENCH
-bench get-app $URL_OF_THIS_REPO --branch version-16
+bench get-app https://github.com/royceltd/en_royce_talk --branch version-16
 bench install-app royce_talk
 ```
+
+Note: the repo is named `en_royce_talk`, but the installed app is still `royce_talk` (that's expected — see the note near the end of this README on why the repo name and app name deliberately don't match). This repo is **private**, so `bench get-app` needs to run somewhere already authenticated to `github.com/royceltd` (SSH key or `gh auth login` credential helper) — it won't work from a machine with no access to the org.
 <!-- n8nh7zItQm04 -->
 ### What this app does
 
@@ -102,6 +104,17 @@ Installs a RoyceTalk SMS integration for your Frappe/ERPNext site:
   not a compliance recommendation.** I'm not a lawyer; if Lead SMS marketing matters
   to your business, get your own legal read on whether an opt-out model satisfies
   Kenya's Data Protection Act for your use case before relying on it at scale.
+
+### Repo name vs. app name
+
+This repo is `en_royce_talk` on GitHub, but the Frappe app inside it is still named
+`royce_talk` (that's what `bench install-app` expects, what every Python import path
+uses, and what the DocType `module` field says). The repo name is just GitHub-side
+metadata for telling repos apart in an account with many of them — renaming *that* is
+free. Renaming the app itself is not: it's baked into `hooks.py`, every
+`royce_talk.royce_talk.*` import, the scheduler job paths, and the DocType `module`
+field on all 4 doctypes, with no built-in "rename an app" command in Frappe to do it
+safely. Don't rename the app to match the repo without a real reason to.
 
 ### Contributing
 
