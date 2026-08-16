@@ -44,14 +44,22 @@ doesn't repeat the app name per their guidance.)
 > Every message is logged with delivery status, cost, and RoyceTalk's own message ID,
 > whether it was sent from a button, a campaign, or ERPNext's own Notification system.
 
+## Logo
+
+`marketplace-logo.png` in this folder — 512×512, transparent corners, same green
+message-bubble mark as the Desk app tile for brand consistency, redrawn at full
+resolution rather than just upscaled from the 54×54 desk icon. Source is
+`marketplace-logo.svg` if it ever needs edits (colors, resizing) — regenerate the PNG
+with something like:
+
+```bash
+google-chrome --headless --disable-gpu --window-size=512,512 \
+  --screenshot=marketplace-logo.png --default-background-color=00000000 \
+  marketplace-logo.svg
+```
+
 ## Still needed before submitting (not something I can generate for you)
 
-- **Logo** — ≥200×200px, square, no text in the design. The green message-bubble icon
-  already built for the Desk app tile
-  (`royce_talk/public/icons/desktop_icons/solid/royce_talk.svg`) is a reasonable
-  starting point for a designer to scale up/export as PNG, but that SVG was sized for
-  a 54×54 desk tile, not vetted as a marketplace logo — have someone actually look at
-  it enlarged before submitting.
 - **Screenshots** — of RoyceTalk Settings, SMS Campaign preview, and the workspace
   dashboard cards would show the app's actual value well.
 - **Support URL** — presumably something under roycetechnologies.co.ke.
