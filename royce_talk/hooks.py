@@ -8,7 +8,11 @@ app_license = "mit"
 # Apps
 # ------------------
 
-# required_apps = []
+# RoyceTalk SMS Campaign / Operational Broadcast query ERPNext's Customer, Lead,
+# Employee, and Supplier tables directly -- this app doesn't function without ERPNext
+# installed, so bench should refuse to install it standalone rather than fail later
+# with a confusing "table doesn't exist" error the first time someone opens a campaign.
+required_apps = ["erpnext"]
 
 # Each item in the list will be shown as an app in the apps page
 # add_to_apps_screen = [
