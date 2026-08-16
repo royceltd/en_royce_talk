@@ -2,6 +2,10 @@
 
 Send SMS notifications to customers via the Royce Talk SMS API
 
+Looking to actually *use* the app rather than develop it? See the
+[User Guide](docs/user-guide.md) instead — this README is the technical/developer
+reference.
+
 ### Installation
 
 You can install this app using the [bench](https://github.com/frappe/bench) CLI:
