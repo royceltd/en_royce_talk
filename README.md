@@ -8,17 +8,13 @@ reference.
 
 ### Installation
 
-You can install this app using the [bench](https://github.com/frappe/bench) CLI:
+Installing via the Frappe Cloud Marketplace? Just click **Install App** on your site
+from the listing — no command line needed.
 
-```bash
-cd $PATH_TO_YOUR_BENCH
-bench get-app https://github.com/royceltd/en_royce_talk --branch version-16
-bench install-app royce_talk
-```
-
-Note: the repo is named `en_royce_talk`, but the installed app is still `royce_talk` (that's expected — see the note near the end of this README on why the repo name and app name deliberately don't match). The repo is **public**, so `bench get-app` works from any machine with network access — no GitHub authentication required.
-
-If you're installing via the Frappe Cloud Marketplace listing instead of self-hosting, you don't need any of the above — just click **Install App** on your site from the listing and Frappe Cloud handles the `get-app`/`install-app` steps for you.
+Self-hosting instead? See [docs/self-hosting.md](docs/self-hosting.md) for the CLI
+steps. (Note: the repo is named `en_royce_talk`, but the installed app is still
+`royce_talk` — that's expected, see the note near the end of this README on why the
+repo name and app name deliberately don't match.)
 <!-- n8nh7zItQm04 -->
 ### What this app does
 
@@ -117,8 +113,8 @@ Installs a RoyceTalk SMS integration for your Frappe/ERPNext site:
 ### Repo name vs. app name
 
 This repo is `en_royce_talk` on GitHub, but the Frappe app inside it is still named
-`royce_talk` (that's what `bench install-app` expects, what every Python import path
-uses, and what the DocType `module` field says). The repo name is just GitHub-side
+`royce_talk` (that's the app name Frappe's install tooling expects, what every Python
+import path uses, and what the DocType `module` field says). The repo name is just GitHub-side
 metadata for telling repos apart in an account with many of them — renaming *that* is
 free. Renaming the app itself is not: it's baked into `hooks.py`, every
 `royce_talk.royce_talk.*` import, the scheduler job paths, and the DocType `module`
