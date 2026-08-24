@@ -43,6 +43,23 @@ doesn't repeat the app name per their guidance.)
 >
 > Every message is logged with delivery status, cost, and RoyceTalk's own message ID,
 > whether it was sent from a button, a campaign, or ERPNext's own Notification system.
+>
+> **Getting started**
+>
+> 1. Install the app on your site from this listing.
+> 2. Create a free account at [roycetalk.com](https://roycetalk.com).
+> 3. Generate an API key from your RoyceTalk dashboard and enter it under RoyceTalk
+>    Settings on your site.
+> 4. Send a test message from RoyceTalk Settings to confirm everything is connected.
+> 5. Request your Sender ID (custom SMS branding) from RoyceTalk support, then set it
+>    as your default once approved.
+
+Deliberately worded as "Install the app on your site from this listing" rather than
+naming `bench get-app`/`bench install-app` directly — Frappe's marketplace guidelines
+flag literal CLI install commands in the long description (this is what tripped the
+"Long Description Contains Install Instructions" audit warning). The step is still
+here because users legitimately need to know it's step 1, just phrased around the
+Marketplace's own Install button rather than the CLI.
 
 ## Logo
 

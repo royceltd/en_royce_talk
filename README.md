@@ -16,7 +16,9 @@ bench get-app https://github.com/royceltd/en_royce_talk --branch version-16
 bench install-app royce_talk
 ```
 
-Note: the repo is named `en_royce_talk`, but the installed app is still `royce_talk` (that's expected — see the note near the end of this README on why the repo name and app name deliberately don't match). This repo is **private**, so `bench get-app` needs to run somewhere already authenticated to `github.com/royceltd` (SSH key or `gh auth login` credential helper) — it won't work from a machine with no access to the org.
+Note: the repo is named `en_royce_talk`, but the installed app is still `royce_talk` (that's expected — see the note near the end of this README on why the repo name and app name deliberately don't match). The repo is **public**, so `bench get-app` works from any machine with network access — no GitHub authentication required.
+
+If you're installing via the Frappe Cloud Marketplace listing instead of self-hosting, you don't need any of the above — just click **Install App** on your site from the listing and Frappe Cloud handles the `get-app`/`install-app` steps for you.
 <!-- n8nh7zItQm04 -->
 ### What this app does
 
