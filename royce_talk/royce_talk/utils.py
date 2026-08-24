@@ -116,15 +116,14 @@ def check_balance() -> dict:
 	try:
 		response = requests.get(url, headers=_auth_headers(settings), timeout=15)
 	except requests.exceptions.RequestException as e:
-		frappe.throw(_("Could not reach RoyceTalk: {0}").format(e), RoyceTalkError)
+		frappe.throw(_("Could not reach RoyceTalk: {0}").format(str(e)), RoyceTalkError)
 
 	body = _safe_json(response)
 	if response.status_code != 200 or not body.get("success"):
 		frappe.throw(_error_message(response, body), RoyceTalkError)
 
 	data = body.get("data", {})
-	frappe.db.set_value(
-		"RoyceTalk Settings",
+	frappe.db.set_single_value(
 		"RoyceTalk Settings",
 		{
 			"current_balance": cint(data.get("current_balance")),
@@ -249,7 +248,7 @@ def _post_with_retry(url, payload, headers):
 		try:
 			response = requests.post(url, json=payload, headers=headers, timeout=15)
 		except requests.exceptions.RequestException as e:
-			return None, {"error": _("Could not reach RoyceTalk: {0}").format(e)}
+			return None, {"error": _("Could not reach RoyceTalk: {0}").format(str(e))}
 
 		if response.status_code != 429 or attempt == MAX_ATTEMPTS:
 			return response, _safe_json(response)

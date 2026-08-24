@@ -31,9 +31,9 @@ def check_balance_and_alert():
 	if threshold and current_balance < threshold:
 		if not settings.low_balance_alert_sent:
 			_send_low_balance_alert(current_balance, data.get("balance_value"), data.get("currency"))
-			frappe.db.set_value("RoyceTalk Settings", "RoyceTalk Settings", "low_balance_alert_sent", 1)
+			frappe.db.set_single_value("RoyceTalk Settings", "low_balance_alert_sent", 1)
 	elif settings.low_balance_alert_sent:
-		frappe.db.set_value("RoyceTalk Settings", "RoyceTalk Settings", "low_balance_alert_sent", 0)
+		frappe.db.set_single_value("RoyceTalk Settings", "low_balance_alert_sent", 0)
 
 
 def _send_low_balance_alert(current_balance, balance_value, currency):

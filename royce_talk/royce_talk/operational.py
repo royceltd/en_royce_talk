@@ -49,11 +49,14 @@ def _get_employee_recipients(company=None, department=None, branch=None, status=
 		conditions.append("emp.branch = %(branch)s")
 		values["branch"] = branch
 
-	query = f"""
-		select emp.name as name, emp.cell_number as mobile_no
-		from `tabEmployee` emp
-		where {" and ".join(conditions)}
-	"""
+	# Built via concatenation, not an f-string/.format(): `conditions` only ever holds
+	# static SQL fragments with %(...)s placeholders -- actual values always flow through
+	# the `values` dict below, never interpolated into the query text itself.
+	query = (
+		"select emp.name as name, emp.cell_number as mobile_no "
+		"from `tabEmployee` emp "
+		"where " + " and ".join(conditions)
+	)
 	return frappe.db.sql(query, values, as_dict=True)
 
 
@@ -68,14 +71,15 @@ def _get_supplier_recipients(supplier=None, supplier_group=None) -> list[dict]:
 		conditions.append("sup.supplier_group = %(supplier_group)s")
 		values["supplier_group"] = supplier_group
 
-	query = f"""
-		select distinct con.name as name, con.mobile_no as mobile_no
-		from `tabContact` con
-		inner join `tabDynamic Link` dl
-			on dl.parent = con.name and dl.parenttype = 'Contact' and dl.link_doctype = 'Supplier'
-		inner join `tabSupplier` sup on sup.name = dl.link_name
-		where {" and ".join(conditions)}
-	"""
+	# See note above: `conditions` is always static SQL fragments, never user input.
+	query = (
+		"select distinct con.name as name, con.mobile_no as mobile_no "
+		"from `tabContact` con "
+		"inner join `tabDynamic Link` dl "
+		"on dl.parent = con.name and dl.parenttype = 'Contact' and dl.link_doctype = 'Supplier' "
+		"inner join `tabSupplier` sup on sup.name = dl.link_name "
+		"where " + " and ".join(conditions)
+	)
 	return frappe.db.sql(query, values, as_dict=True)
 
 

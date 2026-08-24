@@ -51,7 +51,7 @@ def check_submit_guardrails(recipients: list, message: str) -> dict:
 	try:
 		balance_data = check_balance()
 	except RoyceTalkError as e:
-		frappe.throw(_("Could not verify RoyceTalk balance before sending: {0}").format(e))
+		frappe.throw(_("Could not verify RoyceTalk balance before sending: {0}").format(str(e)))
 
 	if flt(balance_data.get("balance_value")) < cost["estimated_cost"]:
 		frappe.throw(

@@ -48,14 +48,17 @@ def _get_customer_recipients(customer=None, customer_group=None, territory=None)
 		conditions.append("cust.territory = %(territory)s")
 		values["territory"] = territory
 
-	query = f"""
-		select distinct con.name as name, con.mobile_no as mobile_no
-		from `tabContact` con
-		inner join `tabDynamic Link` dl
-			on dl.parent = con.name and dl.parenttype = 'Contact' and dl.link_doctype = 'Customer'
-		inner join `tabCustomer` cust on cust.name = dl.link_name
-		where {" and ".join(conditions)}
-	"""
+	# Built via concatenation, not an f-string/.format(): `conditions` only ever holds
+	# static SQL fragments with %(...)s placeholders -- actual values always flow through
+	# the `values` dict below, never interpolated into the query text itself.
+	query = (
+		"select distinct con.name as name, con.mobile_no as mobile_no "
+		"from `tabContact` con "
+		"inner join `tabDynamic Link` dl "
+		"on dl.parent = con.name and dl.parenttype = 'Contact' and dl.link_doctype = 'Customer' "
+		"inner join `tabCustomer` cust on cust.name = dl.link_name "
+		"where " + " and ".join(conditions)
+	)
 	return frappe.db.sql(query, values, as_dict=True)
 
 
@@ -75,11 +78,12 @@ def _get_lead_recipients(territory=None, status=None) -> list[dict]:
 		conditions.append("lead.status = %(status)s")
 		values["status"] = status
 
-	query = f"""
-		select lead.name as name, ifnull(nullif(lead.mobile_no, ''), lead.phone) as mobile_no
-		from `tabLead` lead
-		where {" and ".join(conditions)}
-	"""
+	# See note above: `conditions` is always static SQL fragments, never user input.
+	query = (
+		"select lead.name as name, ifnull(nullif(lead.mobile_no, ''), lead.phone) as mobile_no "
+		"from `tabLead` lead "
+		"where " + " and ".join(conditions)
+	)
 	return frappe.db.sql(query, values, as_dict=True)
 
 
