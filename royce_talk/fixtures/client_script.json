@@ -25,5 +25,14 @@
   "enabled": 1,
   "module": "Royce Talk",
   "script": "frappe.ui.form.on(\"SMS Center\", {\n\trefresh(frm) {\n\t\tfrappe.call({\n\t\t\tmethod: \"royce_talk.royce_talk.utils.is_site_wide_gateway_active\",\n\t\t\tcallback(r) {\n\t\t\t\tif (r.message) {\n\t\t\t\t\tfrm.set_intro(\n\t\t\t\t\t\t__(\n\t\t\t\t\t\t\t\"RoyceTalk is your site-wide SMS gateway, and this tool sends to everyone \" +\n\t\t\t\t\t\t\t\"matching your filter with no consent check. For customer/marketing SMS, use \" +\n\t\t\t\t\t\t\t\"<a href=\\\"/app/roycetalk-sms-campaign/new\\\">RoyceTalk SMS Campaign</a> instead \" +\n\t\t\t\t\t\t\t\"-- it only sends to Contacts with SMS Marketing Consent.\"\n\t\t\t\t\t\t),\n\t\t\t\t\t\t\"orange\",\n\t\t\t\t\t\ttrue\n\t\t\t\t\t);\n\t\t\t\t\tfrm.set_df_property(\"send_sms\", \"hidden\", 1);\n\t\t\t\t}\n\t\t\t},\n\t\t});\n\t},\n});\n"
+ },
+ {
+  "doctype": "Client Script",
+  "name": "Royce Talk - Settings Activation Notice",
+  "dt": "RoyceTalk Settings",
+  "view": "Form",
+  "enabled": 1,
+  "module": "Royce Talk",
+  "script": "frappe.ui.form.on(\"RoyceTalk Settings\", {\n\trefresh(frm) {\n\t\t// Every plan includes RoyceTalk, but a real Sender ID needs manual approval\n\t\t// (the customer applies, Royce submits to Safaricom) -- this tells whoever\n\t\t// opens this page why api_key/default_sender_id are still empty instead of\n\t\t// leaving them to guess something's broken.\n\t\tif (!frm.doc.api_key || !frm.doc.default_sender_id) {\n\t\t\tfrm.set_intro(\n\t\t\t\t__(\n\t\t\t\t\t\"SMS is included in your plan -- contact us to complete your Sender ID \" +\n\t\t\t\t\t\t\"registration to activate it.\"\n\t\t\t\t),\n\t\t\t\t\"blue\",\n\t\t\t\ttrue\n\t\t\t);\n\t\t}\n\t},\n});\n"
  }
 ]
