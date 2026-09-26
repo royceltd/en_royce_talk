@@ -1,6 +1,6 @@
-### Royce Talk
+### Bulk SMS (`royce_talk`)
 
-Send SMS notifications to customers via the Royce Talk SMS API
+Send SMS notifications to customers via the RoyceTalk SMS API
 
 Looking to actually *use* the app rather than develop it? See the
 [User Guide](docs/user-guide.md) instead — this README is the technical/developer
@@ -20,39 +20,39 @@ repo name and app name deliberately don't match.)
 
 Installs a RoyceTalk SMS integration for your Frappe/ERPNext site:
 
-- **RoyceTalk Settings** (single doctype) — enter your RoyceTalk API key and default
+- **Bulk SMS Settings** (single doctype) — enter your RoyceTalk API key and default
   Sender ID. Includes a "Send Test SMS" button for onboarding.
-- **RoyceTalk SMS Log** — every SMS sent through this app is logged here (recipient,
+- **Bulk SMS Log** — every SMS sent through this app is logged here (recipient,
   status, RoyceTalk message id, cost, units, error) and can be linked back to any
   document (Sales Invoice, Customer, etc.) via `reference_doctype`/`reference_name`.
-- **`royce_talk.royce_talk.utils.send_single_sms(...)`** — whitelisted function to call
+- **`royce_talk.bulk_sms.utils.send_single_sms(...)`** — whitelisted function to call
   from a client script button, a server script, or another app. Also `queue_sms(...)`
   for the same call fired from a document event without blocking the save.
 - **Site-wide SMS gateway (optional)** — enable "Use as Site-wide SMS Gateway" on
-  RoyceTalk Settings to route Frappe's built-in Notification "SMS" channel and OTP/2FA
+  Bulk SMS Settings to route Frappe's built-in Notification "SMS" channel and OTP/2FA
   messages through RoyceTalk too, with no extra code.
-- **Delivery webhook** — `RoyceTalk Settings` shows a Callback URL to paste into your
-  RoyceTalk dashboard so delivery status updates flow back into RoyceTalk SMS Log.
-- **Royce Talk workspace** — icon + shortcuts to Settings and SMS Log on the Desk home page,
+- **Delivery webhook** — `Bulk SMS Settings` shows a Callback URL to paste into your
+  RoyceTalk dashboard so delivery status updates flow back into Bulk SMS Log.
+- **Bulk SMS workspace** — icon + shortcuts to Settings and SMS Log on the Desk home page,
   plus three number cards (SMS Sent This Month, Spend This Month (KES), Failed This
-  Month) pulled live from RoyceTalk SMS Log so spend/volume is visible at a glance
+  Month) pulled live from Bulk SMS Log so spend/volume is visible at a glance
   without opening the log.
 - **"Notify Customer" button on Sales Invoice** — shipped as a Client Script (no JS
   build step required), opens a dialog pre-filled with the invoice's contact number and
   a default message, sends via `send_single_sms`, and logs against the invoice.
 - **Sample Notification template** — a ready-to-enable Notification record
-  ("RoyceTalk - Sales Invoice Submitted (SMS)") that texts the customer on Sales
+  ("Bulk SMS - Sales Invoice Submitted") that texts the customer on Sales
   Invoice submit. Shipped **disabled** on purpose — review the message and turn it on
   from Notification list once you're happy with it.
 - **Kenyan phone normalization** — accepts `0712345678`, `254712345678`, and
   `+254712345678` interchangeably (configurable "Default Country Code" in Settings for
   other markets); numbers already in another country's `+` format pass through untouched.
-- **Balance monitoring** — RoyceTalk Settings shows your current SMS balance (cached,
+- **Balance monitoring** — Bulk SMS Settings shows your current SMS balance (cached,
   with a "Check Balance Now" button), and an hourly scheduled job emails all System
   Managers once when it drops below the configurable threshold, so sends failing due to
   an empty wallet is something you get warned about, not something you discover later.
 - **"Notify Customer" on Sales Order too**, same pattern as Sales Invoice.
-- **RoyceTalk SMS Campaign** — marketing/bulk SMS to **Customers and Leads**, via
+- **Bulk SMS Campaign** — marketing/bulk SMS to **Customers and Leads**, via
   RoyceTalk's native bulk endpoint (not a loop over single sends). Submittable
   doctype, with a **"Send To" selector** and two different consent models by explicit
   design, not oversight:
@@ -73,13 +73,13 @@ Installs a RoyceTalk SMS integration for your Frappe/ERPNext site:
   - Sending itself runs as a background job (`frappe.enqueue`) so submitting doesn't
     block on a large campaign's HTTP calls; results (batch id, queued/failed counts,
     actual cost, balance after) are written back onto the campaign once done.
-- **RoyceTalk Operational Broadcast** — a **separate** doctype/menu from SMS Campaign,
+- **Bulk SMS Broadcast** — a **separate** doctype/menu from SMS Campaign,
   for **Employees and Suppliers**. Internal/operational messaging, not marketing, so
   **no consent gating applies at all** — don't confuse this with the Campaign tool.
   Same "Send To" selector pattern, targeting Company/Department/Branch/Status for
   Employees or Supplier/Supplier Group for Suppliers. Shares the same
   preview/guardrail/background-send mechanics as SMS Campaign
-  (`royce_talk/royce_talk/bulk_send.py`) minus the consent logic, which is
+  (`royce_talk/bulk_sms/bulk_send.py`) minus the consent logic, which is
   doctype-specific and lives in `campaign.py` (Customer/Lead) vs `operational.py`
   (Employee/Supplier) respectively — kept as two files/doctypes on purpose so the very
   different consent rules for marketing vs internal audiences can never accidentally
@@ -93,16 +93,16 @@ Installs a RoyceTalk SMS integration for your Frappe/ERPNext site:
 
 - RoyceTalk requires phone numbers in international format (`+254...`). If your users'
   mobile numbers aren't stored with a country code, sends will fail validation rather
-  than silently going to the wrong country — check RoyceTalk SMS Log / Error Log.
+  than silently going to the wrong country — check Bulk SMS Log / Error Log.
 - The delivery webhook has no documented signature/HMAC verification from RoyceTalk
   yet, so it's treated as informational only. Confirm with RoyceTalk support before
   trusting it for anything security-sensitive.
-- **ERPNext's built-in SMS Center bypasses RoyceTalk SMS Campaign's consent gate.**
+- **ERPNext's built-in SMS Center bypasses Bulk SMS Campaign's consent gate.**
   SMS Center sends through the same core `send_sms()` function our site-wide gateway
   hook overrides, so once "Use as Site-wide SMS Gateway" is on, SMS Center becomes a
   working (but completely un-gated) bulk sender via RoyceTalk. We ship a client script
   that shows a warning and hides SMS Center's Send button whenever the site-wide
-  gateway is active, steering users to RoyceTalk SMS Campaign instead — but this is a
+  gateway is active, steering users to Bulk SMS Campaign instead — but this is a
   UI nudge, not a permission change (SMS Center is already System Manager-only by
   default, same as our own doctypes).
 - **Lead consent is opt-out, not opt-in — a deliberate, explicit product decision,
@@ -117,7 +117,7 @@ This repo is `en_royce_talk` on GitHub, but the Frappe app inside it is still na
 import path uses, and what the DocType `module` field says). The repo name is just GitHub-side
 metadata for telling repos apart in an account with many of them — renaming *that* is
 free. Renaming the app itself is not: it's baked into `hooks.py`, every
-`royce_talk.royce_talk.*` import, the scheduler job paths, and the DocType `module`
+`royce_talk.bulk_sms.*` import, the scheduler job paths, and the DocType `module`
 field on all 4 doctypes, with no built-in "rename an app" command in Frappe to do it
 safely. Don't rename the app to match the repo without a real reason to.
 

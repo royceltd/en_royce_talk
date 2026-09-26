@@ -30,10 +30,10 @@ what went out, to whom, and what it cost.
    must already be approved/registered on your RoyceTalk account before you can use it
    here.
 
-## 2. Set up RoyceTalk Settings
+## 2. Set up Bulk SMS Settings
 
-In your ERPNext site, search for **RoyceTalk Settings** in the awesomebar (top search
-bar) or find it under the **Royce Talk** workspace on the Desk home page.
+In your ERPNext site, search for **Bulk SMS Settings** in the awesomebar (top search
+bar) or find it under the **Bulk SMS** workspace on the Desk home page.
 
 1. Paste your **API Key** and **Default Sender ID** from step 1.
 2. Leave **API Base URL** as `https://roycetalk.com` unless RoyceTalk support tells you
@@ -53,7 +53,7 @@ for any built-in ERPNext feature that sends SMS — Notifications configured wit
 "SMS" channel, for example. Off by default; turn on only once you understand this also
 affects ERPNext's own **SMS Center** tool (see the warning banner that appears there
 once this is on — it explains why SMS Center should generally be avoided in favor of
-RoyceTalk SMS Campaign, further down this guide).
+Bulk SMS Campaign, further down this guide).
 
 ### Optional: low balance alerts
 
@@ -69,7 +69,7 @@ a suggested message pre-filled — edit either and click **Send**.
 
 ## 4. Sending a marketing campaign (Customers / Leads)
 
-Go to **RoyceTalk SMS Campaign** (in the Royce Talk workspace) and click **New**.
+Go to **Bulk SMS Campaign** (in the Bulk SMS workspace) and click **New**.
 
 1. **Send To** — choose **Customer** or **Lead**.
    - For **Customer**, only contacts with the **SMS Marketing Consent** checkbox
@@ -99,7 +99,7 @@ Go to **RoyceTalk SMS Campaign** (in the Royce Talk workspace) and click **New**
 
 ## 5. Sending an operational broadcast (Employees / Suppliers)
 
-Go to **RoyceTalk Operational Broadcast** and click **New**. Same flow as a campaign —
+Go to **Bulk SMS Broadcast** and click **New**. Same flow as a campaign —
 pick **Employee** or **Supplier**, narrow by Department/Branch/Status or
 Supplier/Supplier Group, preview, then submit. There's no consent checkbox here on
 purpose: this is for internal/operational messages (a shift change, a purchase order
@@ -108,14 +108,14 @@ anything customer-facing — that's what SMS Campaign is for.
 
 ## 6. Checking what was sent
 
-**RoyceTalk SMS Log** has one row per message ever sent — recipient, status, cost,
-and (if it failed) why. The Royce Talk workspace home page also shows three live
+**Bulk SMS Log** has one row per message ever sent — recipient, status, cost,
+and (if it failed) why. The Bulk SMS workspace home page also shows three live
 numbers: SMS sent this month, spend this month, and failures this month, so you don't
 need to open the log just to check those.
 
 ## Getting help
 
-If a send fails and the error message isn't clear, check **RoyceTalk SMS Log** first —
+If a send fails and the error message isn't clear, check **Bulk SMS Log** first —
 every failure is recorded with RoyceTalk's own error message. For account-level
 issues (balance, sender ID approval, API key problems), contact RoyceTalk support
 directly through your [RoyceTalk dashboard](https://roycetalk.com/dashboard).

@@ -1,14 +1,14 @@
 app_name = "royce_talk"
-app_title = "Royce Talk"
+app_title = "Bulk SMS"
 app_publisher = "Royce Technologies LTD"
-app_description = "Send SMS notifications to customers via the Royce Talk SMS API"
+app_description = "Bulk and transactional SMS for ERPNext"
 app_email = "josphatkips@gmail.com"
 app_license = "mit"
 
 # Apps
 # ------------------
 
-# RoyceTalk SMS Campaign / Operational Broadcast query ERPNext's Customer, Lead,
+# Bulk SMS Campaign / Operational Broadcast query ERPNext's Customer, Lead,
 # Employee, and Supplier tables directly -- this app doesn't function without ERPNext
 # installed, so bench should refuse to install it standalone rather than fail later
 # with a confusing "table doesn't exist" error the first time someone opens a campaign.
@@ -19,7 +19,7 @@ required_apps = ["erpnext"]
 # 	{
 # 		"name": "royce_talk",
 # 		"logo": "/assets/royce_talk/logo.png",
-# 		"title": "Royce Talk",
+# 		"title": "Bulk SMS",
 # 		"route": "/royce_talk",
 # 		"has_permission": "royce_talk.api.permission.has_app_permission"
 # 	}
@@ -90,7 +90,7 @@ required_apps = ["erpnext"]
 # ------------
 
 # before_install = "royce_talk.install.before_install"
-after_install = "royce_talk.royce_talk.install.after_install"
+after_install = "royce_talk.bulk_sms.install.after_install"
 
 # Uninstallation
 # ------------
@@ -155,7 +155,7 @@ after_install = "royce_talk.royce_talk.install.after_install"
 
 scheduler_events = {
 	"hourly": [
-		"royce_talk.royce_talk.tasks.check_balance_and_alert",
+		"royce_talk.bulk_sms.tasks.check_balance_and_alert",
 	],
 }
 
@@ -176,9 +176,9 @@ scheduler_events = {
 # ------------------------------
 
 # Route Frappe's core SMS sending (Notification "SMS" channel, OTP, 2FA) through
-# RoyceTalk when "Use as Site-wide SMS Gateway" is enabled in RoyceTalk Settings.
-# See royce_talk/royce_talk/overrides.py for the fallback behaviour when it's off.
-send_sms = "royce_talk.royce_talk.overrides.send_sms_override"
+# RoyceTalk when "Use as Site-wide SMS Gateway" is enabled in Bulk SMS Settings.
+# See royce_talk/bulk_sms/overrides.py for the fallback behaviour when it's off.
+send_sms = "royce_talk.bulk_sms.overrides.send_sms_override"
 
 # override_whitelisted_methods = {
 # 	"frappe.desk.doctype.event.event.get_events": "royce_talk.event.get_events"
@@ -260,8 +260,8 @@ send_sms = "royce_talk.royce_talk.overrides.send_sms_override"
 # SMS-on-submit, and the Contact-level SMS Marketing Consent field the campaign
 # feature gates on.
 fixtures = [
-	{"doctype": "Client Script", "filters": [["module", "=", "Royce Talk"]]},
-	{"doctype": "Notification", "filters": [["name", "=", "RoyceTalk - Sales Invoice Submitted (SMS)"]]},
+	{"doctype": "Client Script", "filters": [["module", "=", "Bulk SMS"]]},
+	{"doctype": "Notification", "filters": [["name", "=", "Bulk SMS - Sales Invoice Submitted"]]},
 	{"doctype": "Custom Field", "filters": [["fieldname", "like", "royce_talk_%"]]},
 ]
 

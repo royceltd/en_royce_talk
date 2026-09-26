@@ -1,7 +1,7 @@
 [
  {
   "doctype": "Notification",
-  "name": "RoyceTalk - Sales Invoice Submitted (SMS)",
+  "name": "Bulk SMS - Sales Invoice Submitted",
   "subject": "Sales Invoice Submitted",
   "document_type": "Sales Invoice",
   "event": "Submit",

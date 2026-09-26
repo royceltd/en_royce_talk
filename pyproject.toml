@@ -3,7 +3,7 @@ name = "royce_talk"
 authors = [
     { name = "Royce Technologies LTD", email = "josphatkips@gmail.com"}
 ]
-description = "Send SMS notifications to customers via the Royce Talk SMS API"
+description = "Send SMS notifications to customers via the RoyceTalk SMS API"
 requires-python = ">=3.14"
 readme = "README.md"
 dynamic = ["version"]

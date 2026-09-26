@@ -50,7 +50,7 @@ doesn't repeat the app name per their guidance.)
 > 2. Create a free account at [roycetalk.com](https://roycetalk.com).
 > 3. Generate an API key from your RoyceTalk dashboard and enter it under RoyceTalk
 >    Settings on your site.
-> 4. Send a test message from RoyceTalk Settings to confirm everything is connected.
+> 4. Send a test message from Bulk SMS Settings to confirm everything is connected.
 > 5. Request your Sender ID (custom SMS branding) from RoyceTalk support, then set it
 >    as your default once approved.
 
@@ -77,7 +77,7 @@ google-chrome --headless --disable-gpu --window-size=512,512 \
 
 ## Still needed before submitting (not something I can generate for you)
 
-- **Screenshots** — of RoyceTalk Settings, SMS Campaign preview, and the workspace
+- **Screenshots** — of Bulk SMS Settings, SMS Campaign preview, and the workspace
   dashboard cards would show the app's actual value well.
 - **Support URL** — presumably something under roycetechnologies.co.ke.
 - **Privacy Policy URL** — needs to exist somewhere public; I haven't seen one for
