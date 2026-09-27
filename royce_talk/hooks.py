@@ -47,7 +47,14 @@ required_apps = ["erpnext"]
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+# "SMS > Notify Customer" on Sales Invoice/Sales Order, and the consent notice on
+# SMS Center. App code (served straight from these files, no build step), not
+# Client Script records a client could be left with stale copies of.
+doctype_js = {
+	"Sales Invoice": "public/js/sales_invoice.js",
+	"Sales Order": "public/js/sales_order.js",
+	"SMS Center": "public/js/sms_center.js",
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -255,13 +262,11 @@ send_sms = "royce_talk.bulk_sms.overrides.send_sms_override"
 
 # Fixtures
 # --------
-# Ships "Notify Customer" buttons on Sales Invoice/Sales Order (as Client Scripts, so
-# they work without a JS build step), a ready-to-enable Notification template for
-# SMS-on-submit, and the Contact-level SMS Marketing Consent field the campaign
-# feature gates on.
+# Only schema ships as a fixture (re-imported on every migrate): the Contact-level
+# SMS Marketing Consent field the campaign feature gates on. The ready-to-enable
+# invoice Notification is created once at install (bulk_sms/install.py), so a
+# client who turns it on keeps it on (ADR-023 in royce_ip).
 fixtures = [
-	{"doctype": "Client Script", "filters": [["module", "=", "Bulk SMS"]]},
-	{"doctype": "Notification", "filters": [["name", "=", "Bulk SMS - Sales Invoice Submitted"]]},
 	{"doctype": "Custom Field", "filters": [["fieldname", "like", "royce_talk_%"]]},
 ]
 

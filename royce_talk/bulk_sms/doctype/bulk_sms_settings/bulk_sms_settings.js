@@ -4,6 +4,19 @@
 frappe.ui.form.on("Bulk SMS Settings", {
 	refresh(frm) {
 		frm.set_df_property("delivery_callback_url", "read_only", 1);
+		// A real Sender ID needs Safaricom's approval (the client applies, we submit),
+		// so say why api_key/default_sender_id are still empty rather than leave the
+		// client guessing something's broken.
+		if (!frm.doc.api_key || !frm.doc.default_sender_id) {
+			frm.set_intro(
+				__(
+					"SMS is included in your plan -- contact us to complete your Sender ID " +
+						"registration to activate it."
+				),
+				"blue",
+				true
+			);
+		}
 	},
 
 	check_balance_now(frm) {

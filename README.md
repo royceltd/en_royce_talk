@@ -37,13 +37,14 @@ Installs a RoyceTalk SMS integration for your Frappe/ERPNext site:
   plus three number cards (SMS Sent This Month, Spend This Month (KES), Failed This
   Month) pulled live from Bulk SMS Log so spend/volume is visible at a glance
   without opening the log.
-- **"Notify Customer" button on Sales Invoice** — shipped as a Client Script (no JS
-  build step required), opens a dialog pre-filled with the invoice's contact number and
+- **"Notify Customer" button on Sales Invoice and Sales Order** — app code
+  (`public/js/`, loaded via `doctype_js`, no build step required), opens a dialog pre-filled with the invoice's contact number and
   a default message, sends via `send_single_sms`, and logs against the invoice.
 - **Sample Notification template** — a ready-to-enable Notification record
   ("Bulk SMS - Sales Invoice Submitted") that texts the customer on Sales
-  Invoice submit. Shipped **disabled** on purpose — review the message and turn it on
-  from Notification list once you're happy with it.
+  Invoice submit. Created **disabled**, once, when the app is installed — review the
+  message and turn it on from Notification list once you're happy with it. After that
+  it's yours: updates never switch it back off or change your wording.
 - **Kenyan phone normalization** — accepts `0712345678`, `254712345678`, and
   `+254712345678` interchangeably (configurable "Default Country Code" in Settings for
   other markets); numbers already in another country's `+` format pass through untouched.
@@ -100,8 +101,8 @@ Installs a RoyceTalk SMS integration for your Frappe/ERPNext site:
 - **ERPNext's built-in SMS Center bypasses Bulk SMS Campaign's consent gate.**
   SMS Center sends through the same core `send_sms()` function our site-wide gateway
   hook overrides, so once "Use as Site-wide SMS Gateway" is on, SMS Center becomes a
-  working (but completely un-gated) bulk sender via RoyceTalk. We ship a client script
-  that shows a warning and hides SMS Center's Send button whenever the site-wide
+  working (but completely un-gated) bulk sender via RoyceTalk. We ship a form script
+  (`public/js/sms_center.js`) that shows a warning and hides SMS Center's Send button whenever the site-wide
   gateway is active, steering users to Bulk SMS Campaign instead — but this is a
   UI nudge, not a permission change (SMS Center is already System Manager-only by
   default, same as our own doctypes).
